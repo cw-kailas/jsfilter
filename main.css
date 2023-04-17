@@ -1,0 +1,57 @@
+body {
+	background-color: snow;
+}
+
+button {
+	max-height: 30px;
+}
+
+.test {
+	border: 1px solid red;
+}
+
+.container {
+	display: flex;
+    align-items: center;
+	justify-content: center;
+	max-width: 600px;
+}
+
+#filters {
+	display: flex;
+	border: 1px solid pink;
+}
+
+#filters > select {
+	margin: 10px;
+}
+
+.filter{
+    border: 1px solid green;
+    margin: 5px;
+    padding: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.active{
+    background-color: green;
+    color: white;
+    margin: 5px;
+    padding: 5px;
+}
+
+#box {
+    margin: 10px;
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	width: inherit;
+    gap: 10px;
+	border: 1px solid red;
+}
+
+.card {
+	border: 1px solid blue;
+	padding: 10px;
+}
