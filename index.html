@@ -7,55 +7,23 @@
 		<title>Filter JS</title>
 	</head>
 	<body>
-		<div class="container test">
+		<div class="container">
 			<div id="filters"></div>
 		</div>
-		<div class="container test">
+		<div class="container">
 			<div id="box"></div>
 		</div>
 	</body>
 	<script>
 		let data = [
-			{
-				body: "cruiser",
-				power: "150cc",
-				seater: "7 seater",
-			},
-			{
-				body: "retro",
-				power: "200cc",
-				seater: "5 seater",
-			},
-			{
-				body: "retro",
-				power: "150cc",
-				seater: "2 seater",
-			},
-			{
-				body: "cruiser",
-				power: "150cc",
-				seater: "2 seater",
-			},
-			{
-				body: "cruiser",
-				power: "300cc",
-				seater: "3 seater",
-			},
-			{
-				body: "sports",
-				power: "150cc",
-				seater: "5 seater",
-			},
-			{
-				body: "retro",
-				power: "300cc",
-				seater: "3 seater",
-			},
-			{
-				body: "classic",
-				power: "200cc",
-				seater: "3 seater",
-			},
+			{ body: "cruiser", power: "150cc", seater: "7 seater" },
+			{ body: "retro", power: "200cc", seater: "5 seater" },
+			{ body: "retro", power: "150cc", seater: "2 seater" },
+			{ body: "cruiser", power: "150cc", seater: "2 seater" },
+			{ body: "cruiser", power: "300cc", seater: "3 seater" },
+			{ body: "sports", power: "150cc", seater: "5 seater" },
+			{ body: "retro", power: "300cc", seater: "3 seater" },
+			{ body: "classic", power: "200cc", seater: "3 seater" },
 		];
 
 		// get all unique values from body
@@ -64,14 +32,19 @@
 				this.store = data;
 				this.result = [];
 				this.filters = {
-					body: [],
-					power: [],
-					seater: [],
-				};
+                    body: [],
+                    power: [],
+                    seater: []
+                };
 				this.filtersLength = 0;
 			}
 
 			filterData(keyName, valueName) {
+				if (!this.filters.hasOwnProperty(keyName)) {
+                    this.filters[keyName] = [];
+					console.log(this.filters)
+				}
+
 				if (!this.filters[keyName]?.includes(valueName)) {
 					this.filters[keyName].push(valueName);
 					this.filtersLength += 1;
@@ -83,23 +56,22 @@
 				}
 
 				this.result = this.store.filter((car) => {
-					const bodyCheck =
-						this.filters.body.length === 0 ||
-						this.filters.body.includes(car.body);
-					const powerCheck =
-						this.filters.power.length === 0 ||
-						this.filters.power.includes(car.power);
-					const seaterCheck =
-						this.filters.seater.length === 0 ||
-						this.filters.seater.includes(car.seater);
-					return bodyCheck && powerCheck && seaterCheck;
-				});
-			}
+					let checkList = [];
+					let answer = true;
+					for (let i = 0; i < filterKeys.length; i++) {
+						const currentCheck =
+							this.filters[filterKeys[i]].length === 0 ||
+							this.filters[filterKeys[i]].includes(
+								car[filterKeys[i]]
+							);
+						if (!currentCheck) {
+							answer = false;
+							break;
+						}
+					}
 
-			removeFilter(keyName, valueName) {
-				this.filters[keyName] = this.filters[keyName].filter(
-					(item) => item !== valueName
-				);
+					return answer;
+				});
 			}
 
 			log() {
@@ -173,12 +145,10 @@
 				divElement.innerText = values[j];
 				div.appendChild(divElement);
 			}
-
 		}
-        
-        if (filterInstance.filtersLength === 0){
-            createCardAndAppend(data);
-        }
 
+		if (filterInstance.filtersLength === 0) {
+			createCardAndAppend(data);
+		}
 	</script>
 </html>
